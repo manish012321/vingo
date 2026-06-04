@@ -14,7 +14,8 @@ import http from "http"
 import { Server } from "socket.io"
 import { socketHandler } from "./socket.js"
 
-const app=express()
+const app=express();
+
 const server=http.createServer(app)
 
 const io=new Server(server,{
@@ -26,8 +27,6 @@ const io=new Server(server,{
 })
 
 app.set("io",io)
-
-
 
 const port=process.env.PORT || 5000
 app.use(cors({
