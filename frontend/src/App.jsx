@@ -24,7 +24,7 @@ import Shop from './pages/Shop'
 import { io } from 'socket.io-client'
 import { SocketContext } from './context/SocketContext'
 
-export const serverUrl = "http://localhost:8000"
+import { serverUrl } from "./config"
 
 function App() {
   const { userData } = useSelector(state => state.user)

@@ -12,7 +12,7 @@ import { FaCreditCard } from "react-icons/fa";
 import axios from 'axios';
 import { FaMobileScreenButton } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import { serverUrl } from '../App';
+import { serverUrl } from '../config'
 import { addMyOrder, setTotalAmount } from '../redux/userSlice';
 function RecenterMap({ location }) {
   if (location.lat && location.lon) {
