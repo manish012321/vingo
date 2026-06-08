@@ -1,26 +1,24 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
-import { serverUrl } from '../App'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUserData } from '../redux/userSlice'
 import { setMyShopData } from '../redux/ownerSlice'
+import api from '../axiosInstance'
 
-function useGetMyshop() {
-    const dispatch=useDispatch()
-    const {userData}=useSelector(state=>state.user)
-  useEffect(()=>{
-  const fetchShop=async () => {
-    try {
-           const result=await axios.get(`${serverUrl}/api/shop/get-my`,{withCredentials:true})
-            dispatch(setMyShopData(result.data))
-  
-    } catch (error) {
+function useGetMyShop() {
+  const dispatch = useDispatch()
+  const { userData } = useSelector(state => state.user)
+
+  useEffect(() => {
+    if (!userData) return  // ← don't fetch if not logged in
+    const fetchShop = async () => {
+      try {
+        const result = await api.get('/api/shop/get-my')
+        dispatch(setMyShopData(result.data))
+      } catch (error) {
         console.log(error)
+      }
     }
-}
-fetchShop()
- 
-  },[userData])
+    fetchShop()
+  }, [userData])
 }
 
-export default useGetMyshop
+export default useGetMyShop

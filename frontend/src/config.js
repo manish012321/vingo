@@ -1,1 +1,1 @@
-export const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
+export const serverUrl = "http://localhost:8000";
