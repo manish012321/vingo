@@ -16,29 +16,36 @@ import { socketHandler } from "./socket.js"
 const app = express()
 const server = http.createServer(app)
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://vingo-git-main-manishs-projects-1b25527b.vercel.app",
+  process.env.FRONTEND_URL
+].filter(Boolean)
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}
+
 const io = new Server(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true,
-    methods: ["POST", "GET"]
-  }
+  cors: corsOptions
 })
 
 app.set("io", io)
 
 const port = process.env.PORT || 5000
 
-//  CORS first — only once
-app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
-  credentials: true
-}))
-
-// Body + cookie parsers before routes
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
 
-//  Routes
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
 app.use("/api/shop", shopRouter)
@@ -47,7 +54,6 @@ app.use("/api/order", orderRouter)
 
 socketHandler(io)
 
-//  Connect DB first, then start server
 const start = async () => {
   await connectDb()
   server.listen(port, () => {
