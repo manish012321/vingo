@@ -3,12 +3,11 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "vingo-c3003.firebaseapp.com",
-  projectId: "vingo-c3003",
-  storageBucket: "vingo-c3003.firebasestorage.app",
-  messagingSenderId: "512353726530",
-  appId: "1:512353726530:web:d4065e64f8707dd7f53ddb",
-  measurementId: "G-X6MYLW7PTK"
+  authDomain: "zomato-22c3c.firebaseapp.com",
+  projectId: "zomato-22c3c",
+  storageBucket: "zomato-22c3c.firebasestorage.app",
+  messagingSenderId: "600366850644",
+  appId: "1:600366850644:web:e8cc8307518b454b58c3c1"
 };
 
 const app = initializeApp(firebaseConfig);
